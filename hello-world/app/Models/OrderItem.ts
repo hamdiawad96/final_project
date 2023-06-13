@@ -1,33 +1,25 @@
-import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, BelongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, belongsTo, BelongsTo, column } from '@ioc:Adonis/Lucid/Orm';
+import { DateTime } from 'luxon';
 import Order from './Order';
 import Product from './Product';
 
 export default class OrderItem extends BaseModel {
-  public static table = "orders,products";
-
   @column({ isPrimary: true })
   public id: number
 
-  
-  @column({ serializeAs: "order_id", })
-  public order_id: number;
 
-  
-  @column({ serializeAs: "product_id", })
-  public product_id: number;
+  @column({ serializeAs: "order_id" })
+  public orderId: number
 
-  
-  @column({ serializeAs: "quantity", })
-  public quantity: number;
+  @column({ serializeAs: "product_id" })
+  public productId: number
 
-  
-  @column({ serializeAs: "list_price", })
-  public list_price: number;
+  @column({ serializeAs: "qty" })
+  public qty: number
 
-  
-  @column({ serializeAs: "discount", })
-  public discount: number;
+  @column({ serializeAs: "price" })
+  public price: number
+
 
 
 
@@ -37,13 +29,16 @@ export default class OrderItem extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo(() => OrderItem, {
-    foreignKey: 'order_id',
+
+
+  @belongsTo(() => Order, {
+    foreignKey: 'orderId',
   })
-  public orderId: BelongsTo<typeof OrderItem>
+  public orderName: BelongsTo<typeof Order>
 
   @belongsTo(() => Product, {
-    foreignKey: 'product_id',
+    foreignKey: 'productId',
   })
-  public productId: BelongsTo<typeof Product>
+  public productName: BelongsTo<typeof Product>
+
 }

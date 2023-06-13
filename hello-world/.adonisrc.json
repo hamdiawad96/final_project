@@ -15,19 +15,14 @@
   },
   "preloads": [
     "./start/routes",
-    "./start/kernel",
-    {
-      "file": "./start/validator",
-      "environment": [
-        "web"
-      ]
-    }
+    "./start/kernel"
   ],
   "providers": [
     "./providers/AppProvider",
     "@adonisjs/core",
     "@adonisjs/lucid",
-    "@adonisjs/auth"
+    "@adonisjs/auth",
+    "@adonisjs/i18n"
   ],
   "aceProviders": [
     "@adonisjs/repl"
@@ -45,5 +40,8 @@
   },
   "testProviders": [
     "@japa/preset-adonis/TestsProvider"
+  ],
+  "metaFiles": [
+    "resources/lang/**/*.(json|yaml)"
   ]
 }

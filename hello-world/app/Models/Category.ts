@@ -2,13 +2,19 @@ import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Category extends BaseModel {
-  public static table = "staffs";
-
   @column({ isPrimary: true })
   public id: number
+
+  @column({ serializeAs: "name" })
+  public name: String
   
-  @column({ serializeAs: "name", })
-  public name: string;
+  @column({ serializeAs: "active" })
+  public active: boolean
+
+  @column({ serializeAs: "image" })
+  public image: String
+
+  
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -1,22 +1,31 @@
-import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, BelongsTo, column } from '@ioc:Adonis/Lucid/Orm'
-import OrderItem from './OrderItem';
+import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import { DateTime } from "luxon";
+import User from "./User";
+
 
 export default class Order extends BaseModel {
-
-  public static table = "customers";
-
 
   @column({ isPrimary: true })
   public id: number
 
-  
-  @column({ serializeAs: "customer_id", })
-  public customer_id: number;
+  @column({ serializeAs: "user_id" })
+  public userId: number
 
-  
-  @column({ serializeAs: "order_status", })
-  public order_status: number;
+  @column()
+  public total: number
+
+  @column({ serializeAs: "sub_total" })
+  public subTotal: number
+
+  @column({ serializeAs: "tax_amount" })
+  public taxAmount: number
+
+
+  @column({ serializeAs: "payment_method_id" })
+  public paymentMethodId: number
+
+  @column({ serializeAs: "status_id" })
+  public statusId: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -24,9 +33,7 @@ export default class Order extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  
-  @belongsTo(() => OrderItem, {
-    foreignKey: 'customer_id',
-  })
-  public customerId: BelongsTo<typeof OrderItem>
+  @belongsTo(() => User)
+  public user: BelongsTo<typeof User>
+
 }
