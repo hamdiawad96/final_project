@@ -5,19 +5,24 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 export default class AddressesController {
     
     public async getAll(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var result = await Address.query().preload("cityName");
         return result;       
     }
 
     public async getById(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var result = await Address.findOrFail(id);
         return result;
     }
 
     public async create(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             address: schema.string(),
             district : schema.string(),
@@ -46,6 +51,8 @@ export default class AddressesController {
     }
 
     public async update(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             address: schema.string(),
             district : schema.string(),
@@ -69,7 +76,8 @@ export default class AddressesController {
     }
 
     public async destory(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var addres = await Address.findOrFail(id);
         await addres.delete();

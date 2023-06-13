@@ -5,6 +5,8 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 export default class FilmActorsController {
 
     public async getAll(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var result = await FilmActor.query().preload("actorId");
         var result = await FilmActor.query().preload("filmId");
 
@@ -12,14 +14,16 @@ export default class FilmActorsController {
     }
 
     public async getById(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var result = await FilmActor.findOrFail(id);
         return result;
     }
 
     public async create(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             actor_id: schema.number(),
             film_id: schema.number(),
@@ -34,6 +38,8 @@ export default class FilmActorsController {
     }
 
     public async update(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             actor_id: schema.number(),
             film_id: schema.number(),
@@ -51,7 +57,8 @@ export default class FilmActorsController {
     }
 
     public async destory(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var filmactor = await FilmActor.findOrFail(id);
         await filmactor.delete();

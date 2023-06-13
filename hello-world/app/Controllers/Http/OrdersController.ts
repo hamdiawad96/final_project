@@ -5,11 +5,17 @@ import OrderItem from 'App/Models/OrderItem';
 
 export default class OrdersController {
     public async getAll(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
+
         var result = await Order.query().preload("customerId");
         return result;
     }
 
     public async getById(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         var id = ctx.params.id;
         var result = await Order.findOrFail(id);
@@ -17,6 +23,8 @@ export default class OrdersController {
     }
 
     public async create(ctx: HttpContextContract) {
+var object = await ctx.auth.authenticate();
+        console.log(object);
 
         const newSchema = schema.create({
             customer_id: schema.number(),
@@ -32,6 +40,10 @@ export default class OrdersController {
     }
 
     public async update(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
+
         const newSchema = schema.create({
             customer_id: schema.number(),
             order_status: schema.number(),
@@ -47,7 +59,9 @@ export default class OrdersController {
     }
 
     public async destory(ctx: HttpContextContract) {
-
+var object = await ctx.auth.authenticate();
+        console.log(object);
+        
         var id = ctx.params.id;
         var order = await Order.findOrFail(id);
         await order.delete();

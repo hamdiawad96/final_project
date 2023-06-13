@@ -5,6 +5,8 @@ import Stock from 'App/Models/Stock';
 export default class StocksController {
 
     public async getAll(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var result = await Stock.query().preload("storeId");
         var result = await Stock.query().preload("productId");
 
@@ -12,6 +14,8 @@ export default class StocksController {
     }
 
     public async getById(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         var id = ctx.params.id;
         var result = await Stock.findOrFail(id);
@@ -19,7 +23,8 @@ export default class StocksController {
     }
 
     public async create(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             store_id: schema.number(),
             product_id: schema.number(),
@@ -39,6 +44,10 @@ export default class StocksController {
     }
 
     public async update(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
+
         const newSchema = schema.create({
             store_id: schema.number(),
             product_id: schema.number(),
@@ -57,6 +66,8 @@ export default class StocksController {
     }
 
     public async destory(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         var id = ctx.params.id;
         var stock = await Stock.findOrFail(id);

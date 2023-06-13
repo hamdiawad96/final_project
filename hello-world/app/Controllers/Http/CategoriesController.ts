@@ -60,19 +60,26 @@ import Category from 'App/Models/Category';
 export default class ActorsController {
 
     public async getAll(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
+
         var result = await Category.all();
+
         return result;
     }
 
     public async getById(ctx: HttpContextContract) {
-
+var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var result = await Category.findOrFail(id);
         return result;
     }
 
     public async create(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         // var fields = ctx.request.all();
         // var category = new Category();
         // category.name = fields.name;
@@ -91,6 +98,8 @@ export default class ActorsController {
     }
 
     public async update(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             name: schema.string(),
             id: schema.number(),
@@ -105,7 +114,8 @@ export default class ActorsController {
 
 
     public async destory(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var category = await Category.findOrFail(id);
         await category.delete();

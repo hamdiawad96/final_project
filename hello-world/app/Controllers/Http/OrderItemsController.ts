@@ -4,7 +4,12 @@ import OrderItem from 'App/Models/OrderItem';
 
 
 export default class OrderItemsController {
+
     public async getAll(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
+        
         var result = await OrderItem.query().preload("orderId");
         var result = await OrderItem.query().preload("productId");
 
@@ -14,12 +19,18 @@ export default class OrderItemsController {
 
     public async getById(ctx: HttpContextContract) {
 
+        var object = await ctx.auth.authenticate();
+        console.log(object);
+
         var id = ctx.params.id;
         var result = await OrderItem.findOrFail(id);
         return result;
     }
 
     public async create(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         const newSchema = schema.create({
             order_id: schema.number(),
@@ -45,6 +56,9 @@ export default class OrderItemsController {
     }
 
     public async update(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             order_id: schema.number(),
             product_id: schema.number(),
@@ -68,6 +82,9 @@ export default class OrderItemsController {
     }
 
     public async destory(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         var id = ctx.params.id;
         var orderItem = await OrderItem.findOrFail(id);

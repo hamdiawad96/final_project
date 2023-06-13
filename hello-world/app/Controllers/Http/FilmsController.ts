@@ -4,19 +4,23 @@ import Film from 'App/Models/Film';
 
 
 export default class FilmsController {public async getAll(ctx: HttpContextContract) {
+    var object = await ctx.auth.authenticate();
+        console.log(object);
     var result = await Film.query().preload("languageId");
     return result;
 }
 
 public async getById(ctx: HttpContextContract) {
-
+    var object = await ctx.auth.authenticate();
+    console.log(object);
     var id = ctx.params.id;
     var result = await Film.findOrFail(id);
     return result;
 }
 
 public async create(ctx: HttpContextContract) {
-
+    var object = await ctx.auth.authenticate();
+    console.log(object);
     const newSchema = schema.create({
         title: schema.string(),
         description: schema.string(),
@@ -56,6 +60,8 @@ public async create(ctx: HttpContextContract) {
 }
 
 public async update(ctx: HttpContextContract) {
+    var object = await ctx.auth.authenticate();
+        console.log(object);
     const newSchema = schema.create({
         title: schema.string(),
         description: schema.string(),
@@ -91,7 +97,9 @@ public async update(ctx: HttpContextContract) {
 }
 
 public async destory(ctx: HttpContextContract) {
-
+    
+    var object = await ctx.auth.authenticate();
+    console.log(object);
     var id = ctx.params.id;
     var film = await Film.findOrFail(id);
     await film.delete();

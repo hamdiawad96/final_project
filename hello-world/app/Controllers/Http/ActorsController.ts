@@ -1,6 +1,3 @@
-
-
-
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Actor from 'App/Models/Actor';
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
@@ -8,19 +5,24 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 export default class ActorsController {
 
     public async getAll(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var result = await Actor.all();
         return result;
     }
 
     public async getById(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var result = await Actor.findOrFail(id);
+        
         return result;
     }
 
     public async create(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             first_name: schema.string(),
             last_name: schema.string(),
@@ -35,6 +37,8 @@ export default class ActorsController {
     }
 
     public async update(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             first_name: schema.string(),
             last_name: schema.string(),
@@ -50,7 +54,8 @@ export default class ActorsController {
     }
 
     public async destory(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var actor = await Actor.findOrFail(id);
         await actor.delete();

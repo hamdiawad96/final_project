@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-
 export default class Actor extends BaseModel {
   public static table = "staffs";
   @column({ isPrimary: true })

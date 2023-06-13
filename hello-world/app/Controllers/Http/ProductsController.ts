@@ -5,6 +5,10 @@ import Product from 'App/Models/Product';
 export default class ProductsController {
     
     public async getAll(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
+
         var result = await Product.query().preload("brandId");
         var result = await Product.query().preload("categoryId");
 
@@ -13,12 +17,17 @@ export default class ProductsController {
 
     public async getById(ctx: HttpContextContract) {
 
+        var object = await ctx.auth.authenticate();
+        console.log(object);
+
         var id = ctx.params.id;
         var result = await Product.findOrFail(id);
         return result;
     }
 
     public async create(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         const newSchema = schema.create({
             product_name: schema.string(),
@@ -44,6 +53,9 @@ export default class ProductsController {
     }
 
     public async update(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             product_name: schema.string(),
             brand_id: schema.number(),
@@ -62,6 +74,9 @@ export default class ProductsController {
     }
 
     public async destory(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         var id = ctx.params.id;
         var product = await Product.findOrFail(id);

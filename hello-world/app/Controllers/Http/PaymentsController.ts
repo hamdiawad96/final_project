@@ -4,6 +4,9 @@ import Payment from 'App/Models/Payment';
 
 export default class PaymentsController {
     public async getAll(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
+
         var result = await Payment.query().preload("customerId");
         var result = await Payment.query().preload("staffId");
         var result = await Payment.query().preload("rentalId");
@@ -14,13 +17,16 @@ export default class PaymentsController {
     }
 
     public async getById(ctx: HttpContextContract) {
-
+var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var result = await Payment.findOrFail(id);
         return result;
     }
 
     public async create(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         const newSchema = schema.create({
             customer_id: schema.number(),
@@ -42,6 +48,10 @@ export default class PaymentsController {
     }
 
     public async update(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
+
         const newSchema = schema.create({
             customer_id: schema.number(),
             staff_id: schema.number(),
@@ -62,7 +72,9 @@ export default class PaymentsController {
     }
 
     public async destory(ctx: HttpContextContract) {
-
+var object = await ctx.auth.authenticate();
+        console.log(object);
+        
         var id = ctx.params.id;
         var payment = await Payment.findOrFail(id);
         await payment.delete();

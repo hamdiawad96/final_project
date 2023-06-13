@@ -5,6 +5,8 @@ import Staff from 'App/Models/Staff';
 export default class StaffsController {
 
   public async getAll(ctx: HttpContextContract) {
+    var object = await ctx.auth.authenticate();
+        console.log(object);
     var result = await Staff.query().preload("addressId");
     var result = await Staff.query().preload("storeId");
 
@@ -12,6 +14,8 @@ export default class StaffsController {
     }
 
     public async getById(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         var id = ctx.params.id;
         var result = await Staff.findOrFail(id);
@@ -19,6 +23,8 @@ export default class StaffsController {
     }
 
     public async create(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         const newSchema = schema.create({
             first_name: schema.string(),
@@ -51,6 +57,8 @@ export default class StaffsController {
     }
 
     public async update(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             first_name: schema.string(),
             last_name: schema.string(),
@@ -82,7 +90,8 @@ export default class StaffsController {
     }
 
     public async destory(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var staff = await Staff.findOrFail(id);
         await staff.delete();

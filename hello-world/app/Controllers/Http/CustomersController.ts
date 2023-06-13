@@ -4,6 +4,8 @@
 
 export default class CustomersController {
     public async getAll(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var result = await Customer.query().preload("storeId");
         var result = await Customer.query().preload("addressId");
 
@@ -11,6 +13,8 @@ export default class CustomersController {
     }
 
     public async getById(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         var id = ctx.params.id;
         var result = await Customer.findOrFail(id);
@@ -18,7 +22,8 @@ export default class CustomersController {
     }
 
     public async create(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             store_id: schema.number(),
             first_name: schema.string(),
@@ -48,6 +53,9 @@ export default class CustomersController {
     }
 
     public async update(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             store_id: schema.number(),
 
@@ -71,7 +79,8 @@ export default class CustomersController {
     }
 
     public async destory(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var customer = await Customer.findOrFail(id);
         await customer.delete();

@@ -5,6 +5,8 @@ import Store from 'App/Models/Store';
 
 export default class StoresController {
     public async getAll(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         var result = await Store.query().preload("managerStaff");
         var result = await Store.query().preload("addressId");
@@ -13,6 +15,8 @@ export default class StoresController {
 }
 
 public async getById(ctx: HttpContextContract) {
+    var object = await ctx.auth.authenticate();
+        console.log(object);
 
     var id = ctx.params.id;
     var result = await Store.findOrFail(id);
@@ -20,6 +24,8 @@ public async getById(ctx: HttpContextContract) {
 }
 
 public async create(ctx: HttpContextContract) {
+    var object = await ctx.auth.authenticate();
+        console.log(object);
 
     // var fields = ctx.request.all();
     // var store = new Store();
@@ -43,6 +49,9 @@ public async create(ctx: HttpContextContract) {
 }
 
 public async update(ctx: HttpContextContract) {
+
+    var object = await ctx.auth.authenticate();
+        console.log(object);
     // var fields = ctx.request.all();
     // var id = fields.id;
     // var store = await Store.findOrFail(id);
@@ -68,6 +77,9 @@ public async update(ctx: HttpContextContract) {
 
 
 public async destory(ctx: HttpContextContract) {
+
+    var object = await ctx.auth.authenticate();
+        console.log(object);
 
     var id = ctx.params.id;
     var store = await Store.findOrFail(id);

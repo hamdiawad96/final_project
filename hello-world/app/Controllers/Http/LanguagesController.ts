@@ -6,6 +6,8 @@ import Language from 'App/Models/Language';
 export default class LanguagesController {
 
     public async getAll(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         var result = await Inventory.query().preload("filmId");
         var result = await Inventory.query().preload("storeId");
@@ -14,14 +16,16 @@ export default class LanguagesController {
     }
 
     public async getById(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var result = await Language.findOrFail(id);
         return result;
     }
 
     public async create(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             name: schema.string(),
         });
@@ -34,6 +38,8 @@ export default class LanguagesController {
     }
 
     public async update(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             name: schema.string(),
             id: schema.number(),
@@ -47,7 +53,8 @@ export default class LanguagesController {
     }
 
     public async destory(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var language = await Language.findOrFail(id);
         await language.delete();

@@ -6,20 +6,24 @@ import Inventory from 'App/Models/Inventory';
 export default class InventoriesController {
 
     public async getAll(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         var result = await Inventory;
         return result;
     }
     
     public async getById(ctx: HttpContextContract) {
-    
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var result = await Inventory.findOrFail(id);
         return result;
     }
     
     public async create(ctx: HttpContextContract) {
-    
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             store_id: schema.number(),
             film_id: schema.number(),
@@ -35,6 +39,8 @@ export default class InventoriesController {
     }
     
     public async update(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             store_id: schema.number(),
             film_id: schema.number(),
@@ -52,7 +58,8 @@ export default class InventoriesController {
     }
     
     public async destory(ctx: HttpContextContract) {
-    
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var inventory = await Inventory.findOrFail(id);
         await inventory.delete;

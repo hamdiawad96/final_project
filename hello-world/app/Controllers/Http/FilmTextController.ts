@@ -6,19 +6,24 @@ import FilmText from 'App/Models/FilmText';
 export default class FilmTextController {
     
     public async getAll(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         var result = await FilmText.all();
         return result;
     }
     
     public async getById(ctx: HttpContextContract) {
-    
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var result = await FilmText.findOrFail(id);
         return result;
     }
     
     public async create(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
     
         const newSchema = schema.create({
             title: schema.string(),
@@ -34,6 +39,8 @@ export default class FilmTextController {
     }
     
     public async update(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             title: schema.string(),
             description: schema.string(),
@@ -51,6 +58,8 @@ export default class FilmTextController {
     }
     
     public async destory(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
     
         var id = ctx.params.id;
         var filmtext = await FilmText.findOrFail(id);

@@ -40,6 +40,13 @@ import Route from '@ioc:Adonis/Core/Route'
 
 
   Route.group(() => {
+
+    Route.group(() => {
+      Route.post("/login", "UsersController.login");
+      Route.post("/logout", "UsersController.logout");
+      Route.post("/", "UsersController.create");
+    }).prefix("/users");
+
     Route.get("/init", "ActorsController.getInit");
 
     Route.get("/", "ActorsController.getAll");

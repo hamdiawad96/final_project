@@ -6,6 +6,8 @@ import FilmCategory from 'App/Models/FilmCategory';
 export default class FilmCategoriesController {
 
     public async getAll(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
 
         var result = await FilmCategory.query().preload("filmId");
         var result = await FilmCategory.query().preload("categoryId");
@@ -14,14 +16,16 @@ export default class FilmCategoriesController {
 }
 
 public async getById(ctx: HttpContextContract) {
-
+    var object = await ctx.auth.authenticate();
+    console.log(object);
     var id = ctx.params.id;
     var result = await Category.findOrFail(id);
     return result;
 }
 
 public async create(ctx: HttpContextContract) {
-
+    var object = await ctx.auth.authenticate();
+    console.log(object);
     const newSchema = schema.create({
         film_id: schema.number(),
         category_id: schema.number(),
@@ -36,6 +40,8 @@ public async create(ctx: HttpContextContract) {
 }
 
 public async update(ctx: HttpContextContract) {
+    var object = await ctx.auth.authenticate();
+        console.log(object);
     const newSchema = schema.create({
         film_id: schema.number(),
         category_id: schema.number(),
@@ -53,7 +59,8 @@ public async update(ctx: HttpContextContract) {
 }
 
 public async destory(ctx: HttpContextContract) {
-
+    var object = await ctx.auth.authenticate();
+    console.log(object);
     var id = ctx.params.id;
     var filmcategory = await Category.findOrFail(id);
     await filmcategory.delete;

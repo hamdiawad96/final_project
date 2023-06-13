@@ -6,19 +6,25 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 export default class CitiesController {
     
     public async getAll(ctx: HttpContextContract) {
+
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var result = await City.query().preload("countryId");
         return result;
     }
 
     public async getById(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var result = await City.findOrFail(id);
+        
         return result;
     }
 
     public async create(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
             city: schema.string(),
             country_id: schema.number(),
@@ -34,6 +40,8 @@ export default class CitiesController {
     }
 
     public async update(ctx: HttpContextContract) {
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         const newSchema = schema.create({
            city: schema.string(),
             country_id: schema.number(),
@@ -49,7 +57,8 @@ export default class CitiesController {
     }
 
     public async destory(ctx: HttpContextContract) {
-
+        var object = await ctx.auth.authenticate();
+        console.log(object);
         var id = ctx.params.id;
         var city = await City.findOrFail(id);
         await city.delete();
